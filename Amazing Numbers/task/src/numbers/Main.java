@@ -3,7 +3,7 @@ import java.util.LongSummaryStatistics;
 import java.util.Scanner;
 
 // this is a comment
-// no, this is a comment. your comment sucks ass!
+// no, this is a comment. your comment sucks ass! It's really fuckin terrible. Worst comment of the year.
 
 public class Main {
     public static void main(String[] args) {
