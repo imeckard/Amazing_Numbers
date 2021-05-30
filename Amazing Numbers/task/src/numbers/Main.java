@@ -2,6 +2,8 @@ package numbers;
 import java.util.LongSummaryStatistics;
 import java.util.Scanner;
 
+// this is a comment
+
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
