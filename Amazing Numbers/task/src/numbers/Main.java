@@ -3,7 +3,7 @@ import java.util.LongSummaryStatistics;
 import java.util.Scanner;
 
 // this is a comment
-// no, this is a comment. your comment sucks ass!
+// this is also a comment. your comment was lovely
 
 public class Main {
     public static void main(String[] args) {
