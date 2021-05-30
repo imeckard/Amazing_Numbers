@@ -5,6 +5,7 @@ import java.util.Scanner;
 // this is a comment
 // this is also a comment. your comment was lovely
 // no, this is a comment. your comment sucks ass! It's really fuckin terrible. Worst comment of the year.
+// you wouldn't know a good comment if it farted in your coffee
 
 public class Main {
     public static void main(String[] args) {
