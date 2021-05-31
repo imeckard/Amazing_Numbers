@@ -1,11 +1,9 @@
 package numbers;
+import java.util.Locale;
 import java.util.LongSummaryStatistics;
 import java.util.Scanner;
+import java.util.Arrays;
 
-// this is a comment
-// this is also a comment. your comment was lovely
-// no, this is a comment. your comment sucks ass! It's really fuckin terrible. Worst comment of the year.
-// you wouldn't know a good comment if it farted in your coffee
 
 public class Main {
     public static void main(String[] args) {
@@ -17,11 +15,14 @@ public class Main {
         System.out.println("- enter two natural numbers to obtain the properties of the list:");
         System.out.println("  * the first parameter represents a starting number;");
         System.out.println("  * the second parameters show how many consecutive numbers are to be processed;");
+        System.out.println("- two natural numbers and a property to search for;");
         System.out.println("- separate the parameters with one space;");
         System.out.println("- enter 0 to exit.");
 
         long num = 1;
         long secondNum;
+        String inputProperty;
+        String[] properties = new String[] { "even", "odd", "buzz", "duck", "palindromic", "gapful", "spy" };
 
         do {
             System.out.println();
@@ -40,9 +41,12 @@ public class Main {
                 System.out.println();
                 System.out.println("Goodbye!");
             } else {
-                int choice = (input.length == 2) ? 0 : 1;
+                int choice = input.length;
                 switch (choice) {
-                    case 0:
+                    case 1:
+                        singleNum(num);
+                        break;
+                    case 2:
                         try {
                             secondNum = Long.parseLong(input[1]);
                         } catch (Exception e) {
@@ -55,8 +59,23 @@ public class Main {
                             twoNum(input);
                         }
                         break;
-                    case 1:
-                        singleNum(num);
+                    case 3:
+                        inputProperty = input[2].toLowerCase();
+                        boolean result = Arrays.asList(properties).contains(inputProperty);
+                        if (!result) {
+                            System.out.printf("The property [%s] is wrong.%n", inputProperty);
+                            System.out.println("Available properties: " +
+                                    "[EVEN, ODD, BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY]");
+                            continue;
+                        } else {
+                            int propertyIndex = 0;
+                            for (int i = 0; i < properties.length; i++) {
+                                if (properties[i].equals(inputProperty)) {
+                                    propertyIndex = i;
+                                }
+                            }
+                            byProperties(input, propertyIndex);
+                        }
                         break;
                 }
             }
@@ -70,6 +89,7 @@ public class Main {
         System.out.println("        duck: " + checkDuck(num));
         System.out.println(" palindromic: " + checkPalin(num));
         System.out.println("      gapful: " + checkGapful(num));
+        System.out.println("         spy: " + checkSpy(num));
     }
 
     public static void twoNum(String[] input) {
@@ -83,36 +103,46 @@ public class Main {
             properties.append(checkDuck(bigNum) ? "duck, " : "");
             properties.append(checkPalin(bigNum) ? "palindromic, " : "");
             properties.append(checkGapful(bigNum) ? "gapful, " : "");
+            properties.append(checkSpy(bigNum) ? "spy, " : "");
             properties.setLength(properties.length() - 2);
             System.out.println(bigNum + properties.toString());
             bigNum++;
+        }
+    }
+
+    public static void byProperties(String[] input, int propertyIndex){
+        long bigNum = Long.parseLong(input[0]);
+        long smallNum = Long.parseLong(input[1]);
+        switch (propertyIndex) {
+            case 0: //even
+                break;
+            case 1: //odd
+                break;
+            case 2: //buzz
+                break;
+            case 3: //duck
+                break;
+            case 4: //palindromic
+                break;
+            case 5: //gapful
+                break;
+            case 6: //spy
+                break;
         }
 
     }
 
     public static boolean checkParity(long num) {
-        if (num % 2 == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return num % 2 == 0;
     }
 
     public static boolean checkBuzz(long num) {
-        if (num % 7 == 0 || num % 10 == 7) {
-            return true;
-        } else {
-            return false;
-        }
+        return num % 7 == 0 || num % 10 == 7;
     }
 
     public static boolean checkDuck(long num) {
         String numStr = Long.toString(num);
-        if (numStr.contains("0")) {
-            return true;
-        } else {
-            return false;
-        }
+        return numStr.contains("0");
     }
 
     public static boolean checkPalin(long num) {
@@ -130,10 +160,17 @@ public class Main {
     public static boolean checkGapful(long num) {
         String numStr = Long.toString(num);
         long gapNum = Long.parseLong(numStr.charAt(0) + "" + numStr.charAt(numStr.length() - 1));
-        boolean isGapful = false;
-        if (numStr.length() > 2 && num % gapNum == 0) {
-            isGapful = true;
+        return numStr.length() > 2 && num % gapNum == 0;
+    }
+
+    public static boolean checkSpy(long num) {
+        String numStr = Long.toString(num);
+        long product = 1;
+        long sum = 0;
+        for (int i = 0; i < numStr.length(); i++) {
+            product *= Character.getNumericValue(numStr.charAt(i));
+            sum += Character.getNumericValue(numStr.charAt(i));
         }
-        return isGapful;
+        return product == sum;
     }
 }
